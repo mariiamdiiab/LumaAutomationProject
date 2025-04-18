@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite1" verbose="1" >
+    <parameter name="browser" value="edge"/>
+    <test name="Regeneration">
+        <classes>
+            <class name="tests.authentication.UserRegistrationTest" />
+            <class name="tests.authentication.SIgnInUserTest" />
+            <class name="tests.products.SearchProductTest" />
+            <class name="tests.products.AddProductReviewWithGuestUserValidTest" />
+            <class name="tests.products.AddProductToCompareTest" />
+            <class name="tests.products.ProductHoverMenuTest"/>
+            <class name="tests.shoppingCart.AddProductToShoppingCartForRegisteredUserTest" />
+            <class name="tests.shoppingCart.DeleteProductToShoppingCartForRegisteredUserTest" />
+            <class name="tests.checkOut.RegisterUserCheckOutWithDefaultAddressTest"/>
+            <class name="tests.checkOut.OrderHistoryTest"/>
+            <class name="tests.checkOut.RegisterUserCheckOutWithDifferentAddressTest"/>
+            <class name="tests.checkOut.OrderHistoryTest"/>
+
+        </classes>
+    </test>
+</suite>
