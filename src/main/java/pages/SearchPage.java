@@ -10,7 +10,6 @@ public class SearchPage extends PageBase {
     }
 
     private static final By searchTxtBox = By.id("search");
-    //    private static final By productList=List<By.id("search_autocomplete")>;
     private static final By productTitleWrapper = By.className("page-title-wrapper");
     private static final By productName = By.xpath("//a[@class='product-item-link'][1]");
 

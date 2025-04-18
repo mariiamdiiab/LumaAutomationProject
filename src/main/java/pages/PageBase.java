@@ -48,8 +48,6 @@ public class PageBase {
         WebElement element=driver.findElement(elementLocator);
         jse.executeScript("arguments[0].scrollIntoView(true);", element);
 
-        // Optional: Add some offset from top (in pixels) if needed
-        // jse.executeScript("window.scrollBy(0, -100);");
     }
 
 }

@@ -32,7 +32,7 @@ public class AddProductReviewWithUserAccountValidTest extends TestBase {
         searchPage = new SearchPage(driver);
         searchPage.productSearch(GlobalVariable.PRODUCT_NAME);
 
-        // Assertions to verify the product appears in the search results
+        // Assertions to verify the product appear in the search results
         Assert.assertTrue(searchPage.getProductTitleWrapperInSearchPage().contains(GlobalVariable.PRODUCT_NAME),
                 "Product not found in search results");
         Assert.assertEquals(searchPage.getProductName(), GlobalVariable.PRODUCT_NAME,

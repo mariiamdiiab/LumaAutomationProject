@@ -22,7 +22,7 @@ public class ShoppingCartPage extends PageBase{
 
     public void deleteItemByName(String product) {
         try {
-            // Wait for cart to be ready
+            // Wait for the cart to be ready
             wait.until(ExpectedConditions.presenceOfElementLocated(By.id("shopping-cart-table")));
 
             // Find the specific product row

@@ -1,7 +1,6 @@
 package tests.authentication;
 
 import data.ExcelReader;
-import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.HomePage;
@@ -10,7 +9,6 @@ import pages.UserRegistrationPage;
 import tests.TestBase;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class UserRegisterWithInvalidDataTest extends TestBase {
     HomePage homePage;

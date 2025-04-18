@@ -68,7 +68,7 @@ public class RegisterUserCheckOutWithDifferentAddressTest extends TestBase {
 
 
     @Test(priority = 2,dataProvider = "newAddress")
-    public void userCanCheckOutWithNewAddressSuccessfully(String tc,String description,String street, String city,String state, String zip, String county, String phone) throws IOException {
+    public void userCanCheckOutWithNewAddressSuccessfully(String Tc,String description,String street, String city,String state, String zip, String county, String phone) throws IOException {
 
         checkOutPage=new CheckOutPage(driver);
         shoppingCartPage.goToCheckOut();

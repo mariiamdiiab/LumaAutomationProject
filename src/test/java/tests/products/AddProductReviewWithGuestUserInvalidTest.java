@@ -25,12 +25,12 @@ public class AddProductReviewWithGuestUserInvalidTest extends TestBase {
 
     // Combined test for searching and adding a review
     @Test(dataProvider = "ProductReviewData")
-    public void searchForProductAndAddReview(String tcId,String descrption ,String productName,String summary, String review,String error) {
+    public void searchForProductAndAddReview(String tcId,String description ,String productName,String summary, String review,String error) {
         // Step 1: Search for the product
         searchPage = new SearchPage(driver);
         searchPage.productSearch(productName);
 
-        // Assertions to verify the product appears in the search results
+        // Assertions to verify the product appear in the search results
 
 
         Assert.assertTrue(searchPage.getProductTitleWrapperInSearchPage().contains(productName));

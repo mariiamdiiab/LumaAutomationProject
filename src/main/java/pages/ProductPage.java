@@ -11,7 +11,6 @@ public class ProductPage extends PageBase {
 
     // Corrected locators
     private static final By addReviewBtn = By.xpath("//a[contains(@class,'action') and contains(@class,'add')]");
-    private static final By addToWishListBtn = By.linkText("Add to Wish List");
     private static final By addToCompareBtn = By.xpath("//a[@data-role='add-to-links']");
     private static final By chooseSize = By.xpath("(//div[contains(@class,'swatch-option text')])[1]");
     private static final By chooseColor = By.xpath("(//div[contains(@class,'swatch-option color')])[1]");
@@ -21,10 +20,6 @@ public class ProductPage extends PageBase {
     public void addProductReview() {
         clickBtn(addReviewBtn);
     }
-
-//    public void addProductToWishList() {
-//        clickBtn(addToWishListBtn);
-//    }
 
     public void addToCompare() {
         clickBtn(addToCompareBtn);
