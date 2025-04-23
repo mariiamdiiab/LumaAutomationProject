@@ -30,5 +30,8 @@ public class SearchProductTest extends TestBase {
         Assert.assertTrue(searchPage.getProductTitleWrapperInSearchPage().contains(productName));
         Assert.assertEquals(searchPage.getProductName(),productName);
         searchPage.openProductPage();
+
+        System.out.println("test case id:TC_SearchProduct_017 passed");
+
     }
 }

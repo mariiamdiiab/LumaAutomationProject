@@ -52,12 +52,14 @@ public class AddProductReviewWithUserAccountValidTest extends TestBase {
         Assert.assertEquals(addProductReviewPage.getSuccessMessage(),
                 "You submitted your review for moderation.",
                 "Review submission failed");
+        System.out.println("test case id: TC_Review_022 passed");
+
 
     }
-@Test(dependsOnMethods = "userCanAddReviewSuccessfully",priority = 2)
-    public void UserCanSignOut(){
-        homePage.SignOut();
+    @Test(dependsOnMethods = "userCanAddReviewSuccessfully",priority = 2)
+        public void UserCanSignOut(){
+            homePage.SignOut();
 
-    }
+        }
 
 }

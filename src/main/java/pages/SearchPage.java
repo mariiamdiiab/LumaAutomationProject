@@ -1,7 +1,7 @@
 package pages;
 
 import org.openqa.selenium.*;
-
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
 public class SearchPage extends PageBase {
@@ -23,6 +23,7 @@ public class SearchPage extends PageBase {
     }
 
     public String getProductName() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(productName));
         return driver.findElement(productName).getText();
     }
 
