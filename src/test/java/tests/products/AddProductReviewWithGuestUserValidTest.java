@@ -45,6 +45,9 @@ public class AddProductReviewWithGuestUserValidTest extends TestBase {
         Assert.assertEquals(addProductReviewPage.getSuccessMessage(),
                 "You submitted your review for moderation.",
                 "Review submission failed");
+
+        System.out.println("test case id: TC_Review_018 passed");
+
     }
 }
 

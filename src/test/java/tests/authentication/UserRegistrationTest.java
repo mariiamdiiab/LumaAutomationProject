@@ -39,7 +39,7 @@ public class UserRegistrationTest extends TestBase {
         System.out.println("first name is: "+firstName
         +" last name is: "+lastName
         +" email is: "+email);
-        System.out.println("tc id is: TC_Reg_001 passed");
+        System.out.println("test case id:TC_REG_001 passed");
 
         homePage.SignOut();
         }

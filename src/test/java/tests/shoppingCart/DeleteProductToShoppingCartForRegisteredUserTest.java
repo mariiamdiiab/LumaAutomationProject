@@ -28,7 +28,7 @@ public class DeleteProductToShoppingCartForRegisteredUserTest extends TestBase {
         return er.getExcelDataForCompare();
     }
 
-    @Test
+    @Test()
     public void userCanSignInSuccessfully() {
         homePage = new HomePage(driver);
         singInPage = new SingInPage(driver);
@@ -37,7 +37,7 @@ public class DeleteProductToShoppingCartForRegisteredUserTest extends TestBase {
         Assert.assertTrue(homePage.getWelcomeMessage().contains("Welcome"));
     }
 
-    @Test(priority = 1, dependsOnMethods = "userCanSignInSuccessfully", dataProvider = "ExcelData")
+    @Test(priority = 1,dataProvider = "ExcelData",dependsOnMethods = "userCanSignInSuccessfully")
     public void userCanAddProductToCart(String productName, String productName2) {
         productPage = new ProductPage(driver);
         shoppingCartPage = new ShoppingCartPage(driver);
@@ -80,10 +80,6 @@ public class DeleteProductToShoppingCartForRegisteredUserTest extends TestBase {
         // Verify assertions
         Assert.assertTrue(updatedProducts.contains(productName2),
                 "Cart should contain: " + productName2);
-//        Assert.assertTrue(updatedProducts.contains(productName3),
-//                "Cart should contain: " + productName3);
-
-        // Clear remaining items
 
     }
     @Test(priority = 3)
@@ -92,5 +88,8 @@ public class DeleteProductToShoppingCartForRegisteredUserTest extends TestBase {
         Assert.assertTrue(shoppingCartPage.getCartEmptyMessage()
                         .contains("You have no items in your shopping cart"),
                 "Cart should be empty");
+
+        System.out.println("test case id:TC_DeleteFromCart_028 passed");
+
     }
 }

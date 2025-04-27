@@ -9,30 +9,28 @@ import pages.SingInPage;
 import tests.TestBase;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class SIgnInUserTestWithInvalidDataTest extends TestBase {
     HomePage homePage;
     SingInPage singInPage;
-    @DataProvider(name = "ExcelData")
 
-    public Object[][]UserRegisterData() throws IOException {
+    @DataProvider(name = "ExcelData")
+    public Object[][] UserSignIn() throws IOException {
         ExcelReader er=new ExcelReader();
         return er.getExcelDataForSignIn();
     }
 
 
     @Test(dataProvider = "ExcelData")
-    public void userCanSignInSuccessfully(String tcId,String description ,String email,String password) {
+    public void userCanSignInSuccessfully(String Tc_Id,String description ,String email,String password,String error) {
         homePage = new HomePage(driver);
         singInPage = new SingInPage(driver);
 
 
         homePage.openSignInPage();
         singInPage.userSignIn(email, password);
-
-        Assert.assertTrue(Objects.requireNonNull(driver.getTitle()).contains("Login"));
-        System.out.println("test case id: "+ tcId +" passed");
+        Assert.assertEquals(singInPage.getErrorMsg(),error);
+        System.out.println("test case id: "+ Tc_Id +" passed");
 
 
 

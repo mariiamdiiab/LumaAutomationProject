@@ -15,7 +15,7 @@ public class AddProductReviewPage extends PageBase {
     private static final By reviewTxtBox = By.id("review_field");
     private static final By submitBtn = By.xpath("//button[@class='action submit primary']");
     private static final By successMessage=By.xpath("//div[@class='message-success success message']");
-    private static final By errorMsg = By.xpath("//*[contains(@class, 'mage-error')][@generated='true'][not(contains(@style, 'none'))]");
+    private static final By errorMsg = By.xpath(    "//*[contains(@class, 'mage-error')][@generated='true'][not(contains(@style, 'none'))]");
 
 
 
