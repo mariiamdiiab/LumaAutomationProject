@@ -17,5 +17,8 @@ public class ProductHoverMenuTest extends TestBase {
         homePage.selectJacketMenu();
         Assert.assertTrue(Objects.requireNonNull(driver.getCurrentUrl()).contains("jackets"));
         Assert.assertEquals(homePage.getPageTitle(),"Jackets");
+
+        System.out.println("test case id: TC_Hover_026 passed");
+
     }
 }

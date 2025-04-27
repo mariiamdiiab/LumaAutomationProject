@@ -68,7 +68,7 @@ public class RegisterUserCheckOutWithDifferentAddressTest extends TestBase {
 
 
     @Test(priority = 2,dataProvider = "newAddress")
-    public void userCanCheckOutWithNewAddressSuccessfully(String Tc,String description,String street, String city,String state, String zip, String county, String phone) throws IOException {
+    public void userCanCheckOutWithNewAddressSuccessfully(String Tc_Id,String description,String street, String city,String state, String zip, String county, String phone) throws IOException {
 
         checkOutPage=new CheckOutPage(driver);
         shoppingCartPage.goToCheckOut();
@@ -76,9 +76,13 @@ public class RegisterUserCheckOutWithDifferentAddressTest extends TestBase {
         Assert.assertTrue(Objects.requireNonNull(driver.getTitle()).equalsIgnoreCase("success page"));
 
         String orderId = checkOutPage.getOrderId();
-        excel.writeNewOrderId(orderId);
 
         System.out.println("the order id is "+ checkOutPage.getOrderId());
+
+
+        excel.writeNewOrderId(orderId);
+        System.out.println("test case id: "+ Tc_Id +" passed");
+
     }
 
 

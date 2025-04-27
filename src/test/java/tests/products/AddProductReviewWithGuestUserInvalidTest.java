@@ -9,7 +9,6 @@ import pages.AddProductReviewPage;
 import pages.ProductPage;
 import pages.SearchPage;
 import tests.TestBase;
-import utilites.GlobalVariable;
 
 import java.io.IOException;
 
@@ -25,7 +24,7 @@ public class AddProductReviewWithGuestUserInvalidTest extends TestBase {
 
     // Combined test for searching and adding a review
     @Test(dataProvider = "ProductReviewData")
-    public void searchForProductAndAddReview(String tcId,String description ,String productName,String summary, String review,String error) {
+    public void searchForProductAndAddReview(String Tc_Id,String description ,String productName,String guest,String summary, String review,String error) {
         // Step 1: Search for the product
         searchPage = new SearchPage(driver);
         searchPage.productSearch(productName);
@@ -44,11 +43,11 @@ public class AddProductReviewWithGuestUserInvalidTest extends TestBase {
         AddProductReviewPage addProductReviewPage = new AddProductReviewPage(driver);
 
         productPage.addProductReview();
-        addProductReviewPage.addReviewForGuestUsers(GlobalVariable.GUEST_NICKNAME, summary, review);
+        addProductReviewPage.addReviewForGuestUsers(guest, summary, review);
 
         // Validate the success message after submitting the review
         Assert.assertEquals(addProductReviewPage.getErrorMsg(),error);
-        System.out.println("test case id: "+ tcId +" passed");
+        System.out.println("test case id: "+ Tc_Id +" passed");
 
     }
 }

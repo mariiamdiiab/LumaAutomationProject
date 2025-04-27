@@ -23,7 +23,7 @@ public class SIgnInUserTest extends TestBase {
         homePage.openSignInPage();
         singInPage.userSignIn(GlobalVariable.EMAIL, GlobalVariable.PASSWORD);
         Assert.assertTrue(homePage.getWelcomeMessage().contains("Welcome"), "the website should include Welcome");
-        System.out.println("tc id is: TC_SignIn_001 passed");
+        System.out.println("test case id: TC_SingIn_012 passed");
 
             homePage.SignOut();
 

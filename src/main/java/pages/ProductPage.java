@@ -16,6 +16,8 @@ public class ProductPage extends PageBase {
     private static final By chooseColor = By.xpath("(//div[contains(@class,'swatch-option color')])[1]");
     private static final By addToCartBtn = By.id("product-addtocart-button");
     private static final By openCartLink=By.linkText("shopping cart");
+    private static final By errorMsg = By.xpath(    "//*[contains(@class, 'mage-error')][@generated='true'][not(contains(@style, 'none'))]");
+
 
     public void addProductReview() {
         clickBtn(addReviewBtn);

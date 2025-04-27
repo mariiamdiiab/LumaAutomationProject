@@ -54,6 +54,8 @@ public class AddProductToCompareTest extends TestBase {
         Assert.assertEquals(comparedNames.size(), 2,
                 "There should be exactly 2 products in the compare list");
 
+        System.out.println("test case id: TC_Compare_025 passed");
+
         // Clean up
         comparePage.clearCompareTable();
         Assert.assertEquals(comparePage.getNoProductToCompareMsg(),

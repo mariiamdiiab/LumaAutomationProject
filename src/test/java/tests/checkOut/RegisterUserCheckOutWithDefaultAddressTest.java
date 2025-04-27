@@ -77,6 +77,8 @@ public class RegisterUserCheckOutWithDefaultAddressTest extends TestBase {
 
         System.out.println("the order id is "+ checkOutPage.getOrderId());
 
+        System.out.println("test case id:TC_CheckOut_029 passed");
+
     }
 
 

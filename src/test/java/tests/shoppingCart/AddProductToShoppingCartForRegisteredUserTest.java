@@ -60,6 +60,10 @@ public class AddProductToShoppingCartForRegisteredUserTest extends TestBase {
         List<String> cartProductNames=shoppingCartPage.getCartProductNames();
         Assert.assertTrue(cartProductNames.contains(productName),"Cart should contain: "+ productName);
         Assert.assertTrue(cartProductNames.contains(productName2),"Cart should contain: "+ productName2);
+
+
+        System.out.println("test case id:TC_AddToCart_027 passed");
+
     }
 
 

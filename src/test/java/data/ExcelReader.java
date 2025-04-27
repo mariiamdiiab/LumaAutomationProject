@@ -31,14 +31,13 @@ public class ExcelReader {
 
         // Get row count (skip header)
         int rowCount = sheet.getPhysicalNumberOfRows() - 1;
-        int colCount = 6; // firstName, lastName, email, password
+        int colCount = 8;
 
         String[][] testData = new String[rowCount][colCount];
 
-        for (int i = 1; i <= rowCount; i++) { // Start from 1 to skip header
+        for (int i = 1; i <= rowCount; i++) {
             XSSFRow row = sheet.getRow(i);
             for (int j = 0; j < colCount; j++) {
-                // Handle null cells safely
                 testData[i - 1][j] = row.getCell(j) != null ?
                         row.getCell(j).toString() : "";
             }
@@ -50,6 +49,7 @@ public class ExcelReader {
     }
 
 
+
     public Object[][] getExcelDataForSignIn() throws IOException {
         fis = getFileInputStream();
         XSSFWorkbook workbook = new XSSFWorkbook(fis);
@@ -57,7 +57,7 @@ public class ExcelReader {
 
         // Get row count (skip header)
         int rowCount = sheet.getPhysicalNumberOfRows() - 1;
-        int colCount = 4; // email, password
+        int colCount = 5;
 
         String[][] testData = new String[rowCount][colCount];
 
@@ -105,10 +105,9 @@ public class ExcelReader {
     public Object[][] getExcelDataForAddingReview() throws IOException {
         fis = getFileInputStream();
         XSSFWorkbook workbook = new XSSFWorkbook(fis);
-        XSSFSheet sheet = workbook.getSheetAt(3); // Verify the correct sheet index
-
-        int rowCount = sheet.getPhysicalNumberOfRows() - 1; // Exclude header
-        int colCount = 6; // Must match the number of columns your test needs
+        XSSFSheet sheet = workbook.getSheetAt(3);
+        int rowCount = sheet.getPhysicalNumberOfRows() - 1;
+        int colCount = 7;
 
         Object[][] testData = new Object[rowCount][colCount];
 
