@@ -1,5 +1,7 @@
     package tests.products;
     import data.ExcelReader;
+    import io.qameta.allure.Severity;
+    import io.qameta.allure.SeverityLevel;
     import org.testng.Assert;
     import org.testng.annotations.DataProvider;
     import org.testng.annotations.Test;
@@ -37,6 +39,7 @@
         }
     
         @Test(dataProvider = "ProductReviewData",priority = 1)
+        @Severity(SeverityLevel.NORMAL)
         public void searchForProductAndAddReview(String tcId,String description ,String productName,String guest,String summary, String review,String error) {
             // Step 1: Search for the product
             searchPage = new SearchPage(driver);

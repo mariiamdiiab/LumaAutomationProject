@@ -1,6 +1,8 @@
 package tests.products;
 
 import data.ExcelReader;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -23,6 +25,7 @@ public class SearchProductTest extends TestBase {
 
 
     @Test(dataProvider = "ExcelData")
+    @Severity(SeverityLevel.NORMAL)
     public void userCanSearchForProduct(String productName){
         searchPage=new SearchPage(driver);
         searchPage.productSearch(productName);

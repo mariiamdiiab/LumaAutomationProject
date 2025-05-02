@@ -1,6 +1,8 @@
 package tests.products;
 
 
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.AddProductReviewPage;
@@ -20,6 +22,7 @@ public class AddProductReviewWithGuestUserValidTest extends TestBase {
 
     // Combined test for searching and adding a review
     @Test()
+    @Severity(SeverityLevel.NORMAL)
     public void searchForProductAndAddReview() {
         // Step 1: Search for the product
         searchPage = new SearchPage(driver);

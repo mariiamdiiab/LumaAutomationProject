@@ -1,6 +1,8 @@
 package tests.checkOut;
 
 import data.ExcelReader;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -63,6 +65,7 @@ public class RegisterUserCheckOutWithDefaultAddressTest extends TestBase {
     }
 
     @Test(priority = 2,dependsOnMethods = "userCanAddProductToCart")
+    @Severity(SeverityLevel.CRITICAL)
     public void userCheckOutWithSavedAddressSuccessfully()throws IOException {
         checkOutPage=new CheckOutPage(driver);
 

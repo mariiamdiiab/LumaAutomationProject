@@ -2,6 +2,8 @@ package tests.products;
 
 
 import data.ExcelReader;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -24,6 +26,9 @@ public class AddProductReviewWithGuestUserInvalidTest extends TestBase {
 
     // Combined test for searching and adding a review
     @Test(dataProvider = "ProductReviewData")
+    @Severity(SeverityLevel.MINOR)
+
+
     public void searchForProductAndAddReview(String Tc_Id,String description ,String productName,String guest,String summary, String review,String error) {
         // Step 1: Search for the product
         searchPage = new SearchPage(driver);

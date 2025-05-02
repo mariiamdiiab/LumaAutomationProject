@@ -17,7 +17,6 @@ public class Helper {
                 new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
     }
 
-    // Optional: Keep local file saving for debugging (but add to .gitignore)
     public static void saveScreenshotLocally(WebDriver driver, String screenshotName) {
         Path dest = Paths.get("./target/screenshots", screenshotName + ".png");
         try {

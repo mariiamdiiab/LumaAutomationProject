@@ -36,6 +36,7 @@ public class PageBase {
 
     public void sendTxtToTxtBox(By element, String value){
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
+        driver.findElement(element).clear();
         driver.findElement(element).sendKeys(value);
     }
 

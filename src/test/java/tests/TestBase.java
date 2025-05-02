@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import utilites.BrowserOptions;
+import utilites.GlobalVariable;
 import utilites.Helper;
 
 public class TestBase {
@@ -17,7 +18,7 @@ public class TestBase {
 
         // Configure browser
         driver.manage().window().maximize();
-        driver.get("https://magento.softwaretestingboard.com/");
+        driver.get(GlobalVariable.URL);
     }
 
     @AfterMethod

@@ -1,5 +1,7 @@
 package tests.authentication;
 
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.HomePage;
@@ -15,6 +17,7 @@ public class SIgnInUserTest extends TestBase {
 
 
     @Test
+    @Severity(SeverityLevel.CRITICAL)
     public void userCanSignInSuccessfully() {
         homePage = new HomePage(driver);
         singInPage = new SingInPage(driver);
@@ -25,7 +28,7 @@ public class SIgnInUserTest extends TestBase {
         Assert.assertTrue(homePage.getWelcomeMessage().contains("Welcome"), "the website should include Welcome");
         System.out.println("test case id: TC_SingIn_012 passed");
 
-            homePage.SignOut();
+        //homePage.SignOut();
 
 
     }

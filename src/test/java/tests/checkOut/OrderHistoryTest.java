@@ -1,6 +1,8 @@
 package tests.checkOut;
 
 import data.ExcelReader;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -37,6 +39,7 @@ public class OrderHistoryTest extends TestBase {
     }
 
     @Test(priority = 1,dataProvider = "OrderIDData")
+    @Severity(SeverityLevel.CRITICAL)
     public void userCheckIfOrderAppearInOrderHistory(String orderId){
         myAccountPage=new MyAccountPage(driver);
 
