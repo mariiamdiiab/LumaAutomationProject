@@ -1,6 +1,8 @@
 package tests.authentication;
 
 import data.ExcelReader;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -22,6 +24,7 @@ public class SIgnInUserTestWithInvalidDataTest extends TestBase {
 
 
     @Test(dataProvider = "ExcelData")
+    @Severity(SeverityLevel.NORMAL)
     public void userCanSignInSuccessfully(String Tc_Id,String description ,String email,String password,String error) {
         homePage = new HomePage(driver);
         singInPage = new SingInPage(driver);

@@ -1,6 +1,8 @@
 package tests.shoppingCart;
 
 import data.ExcelReader;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -28,7 +30,7 @@ public class DeleteProductToShoppingCartForRegisteredUserTest extends TestBase {
         return er.getExcelDataForCompare();
     }
 
-    @Test()
+    @Test
     public void userCanSignInSuccessfully() {
         homePage = new HomePage(driver);
         singInPage = new SingInPage(driver);
@@ -61,6 +63,7 @@ public class DeleteProductToShoppingCartForRegisteredUserTest extends TestBase {
     }
 
     @Test(dependsOnMethods = "userCanAddProductToCart", dataProvider = "ExcelData",priority = 2)
+    @Severity(SeverityLevel.NORMAL)
     public void userCanDeleteFromShoppingCart(String productName, String productName2) {
         // Verify product exists before deletion
         List<String> initialProducts = shoppingCartPage.getCartProductNames();
@@ -83,6 +86,7 @@ public class DeleteProductToShoppingCartForRegisteredUserTest extends TestBase {
 
     }
     @Test(priority = 3)
+    @Severity(SeverityLevel.NORMAL)
     public void userClearTheCart(){
         shoppingCartPage.clearCart();
         Assert.assertTrue(shoppingCartPage.getCartEmptyMessage()

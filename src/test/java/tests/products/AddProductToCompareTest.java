@@ -1,6 +1,8 @@
 package tests.products;
 
 import data.ExcelReader;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -26,6 +28,7 @@ public class AddProductToCompareTest extends TestBase {
     }
 
     @Test(dataProvider = "ExcelData")
+    @Severity(SeverityLevel.MINOR)
     public void userCanCompareProducts(String productName1, String productName2) {
         productPage = new ProductPage(driver);
         comparePage = new ComparePage(driver);

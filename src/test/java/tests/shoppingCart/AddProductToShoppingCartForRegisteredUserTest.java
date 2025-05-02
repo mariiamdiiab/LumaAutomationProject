@@ -1,6 +1,8 @@
 package tests.shoppingCart;
 
 import data.ExcelReader;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -40,6 +42,7 @@ public class AddProductToShoppingCartForRegisteredUserTest extends TestBase {
 
 
     @Test(priority = 1,dependsOnMethods = "userCanSignInSuccessfully",dataProvider = "ExcelData")
+    @Severity(SeverityLevel.CRITICAL)
     public void userCanAddProductToCart(String productName,String productName2) {
         productPage=new ProductPage(driver);
         shoppingCartPage =new ShoppingCartPage(driver);

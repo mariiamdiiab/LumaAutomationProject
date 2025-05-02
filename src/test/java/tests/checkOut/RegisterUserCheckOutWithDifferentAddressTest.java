@@ -1,6 +1,8 @@
 package tests.checkOut;
 
 import data.ExcelReader;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -68,6 +70,7 @@ public class RegisterUserCheckOutWithDifferentAddressTest extends TestBase {
 
 
     @Test(priority = 2,dataProvider = "newAddress")
+    @Severity(SeverityLevel.CRITICAL)
     public void userCanCheckOutWithNewAddressSuccessfully(String Tc_Id,String description,String street, String city,String state, String zip, String county, String phone) throws IOException {
 
         checkOutPage=new CheckOutPage(driver);

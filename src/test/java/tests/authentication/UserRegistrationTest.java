@@ -1,6 +1,8 @@
 package tests.authentication;
 
 import com.github.javafaker.Faker;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.HomePage;
@@ -19,6 +21,7 @@ public class UserRegistrationTest extends TestBase {
 
 
     @Test
+    @Severity(SeverityLevel.CRITICAL)
         public void userCanRegisterSuccessfully() {
             HomePage homePage = new HomePage(driver);
             UserRegistrationPage userRegistrationPage = new UserRegistrationPage(driver);
