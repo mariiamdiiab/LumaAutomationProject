@@ -1,8 +1,7 @@
 package tests.products;
 
 import data.ExcelReader;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -11,30 +10,34 @@ import tests.TestBase;
 
 import java.io.IOException;
 
+@Epic("Products")
+@Feature("Search Functionality")
 public class SearchProductTest extends TestBase {
     SearchPage searchPage;
 
-
-
-    @DataProvider(name = "ExcelData")
-
-    public Object[][]UserRegisterData() throws IOException {
-        ExcelReader er=new ExcelReader();
+    @DataProvider(name = "searchProductData")
+    public Object[][] searchProductData() throws IOException {
+        ExcelReader er = new ExcelReader();
         return er.getExcelDataForSearchProduct();
     }
 
-
-    @Test(dataProvider = "ExcelData")
+    @Test(dataProvider = "searchProductData")
     @Severity(SeverityLevel.NORMAL)
-    public void userCanSearchForProduct(String productName){
-        searchPage=new SearchPage(driver);
-        searchPage.productSearch(productName);
+    @Description("Validate that the user can search for an existing product by name")
+    public void verifyUserCanSearchExistingProduct(String productName) {
+        searchPage = new SearchPage(driver);
 
-        Assert.assertTrue(searchPage.getProductTitleWrapperInSearchPage().contains(productName));
-        Assert.assertEquals(searchPage.getProductName(),productName);
-        searchPage.openProductPage();
+        Allure.step("Enter product name in the search bar", () -> searchPage.productSearch(productName));
 
-        System.out.println("test case id:TC_SearchProduct_017 passed");
+        Allure.step("Verify product appears in search results", () -> {
+            Assert.assertTrue(searchPage.getProductTitleWrapperInSearchPage().contains(productName),
+                    "Product not found in search results.");
+            Assert.assertEquals(searchPage.getProductName(), productName,
+                    "Product name mismatch in search result.");
+        });
 
+        Allure.step("Open the product page", () -> searchPage.openProductPage());
+
+        Allure.addAttachment("Test Case Result", "Search product test passed for: " + productName);
     }
 }

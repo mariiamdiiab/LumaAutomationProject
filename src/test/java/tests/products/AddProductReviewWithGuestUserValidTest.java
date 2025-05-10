@@ -1,6 +1,8 @@
 package tests.products;
 
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import org.testng.Assert;
@@ -11,7 +13,8 @@ import pages.SearchPage;
 import tests.TestBase;
 import utilites.GlobalVariable;
 
-
+@Epic("Products")
+@Feature("Add Review Functionality")
 public class AddProductReviewWithGuestUserValidTest extends TestBase {
     SearchPage searchPage;
     ProductPage productPage;

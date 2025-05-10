@@ -2,11 +2,11 @@
 <suite name="Valid cases" verbose="1" >
     <parameter name="browser" value="headless"/>
     <test name="Regeneration">
-        <classes>
+        <classes name="valid">
             <class name="tests.authentication.UserRegistrationTest" />
-            <class name="tests.authentication.SIgnInUserTest" />
+            <class name="tests.authentication.SignInUserTest" />
             <class name="tests.products.SearchProductTest" />
-            <class name="tests.products.AddProductReviewWithGuestUserValidTest" />
+            <class name="tests.products.AddProductReviewWithUserAccountValidTest" />
             <class name="tests.products.AddProductToCompareTest" />
             <class name="tests.products.ProductHoverMenuTest"/>
             <class name="tests.shoppingCart.AddProductToShoppingCartForRegisteredUserTest" />
@@ -15,8 +15,6 @@
             <class name="tests.checkOut.OrderHistoryTest"/>
             <class name="tests.checkOut.RegisterUserCheckOutWithDifferentAddressTest"/>
             <class name="tests.checkOut.OrderHistoryTest"/>
-
         </classes>
-
     </test>
 </suite>

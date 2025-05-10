@@ -1,8 +1,7 @@
 package tests.authentication;
 
 import data.ExcelReader;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -12,6 +11,9 @@ import pages.UserRegistrationPage;
 import tests.TestBase;
 
 import java.io.IOException;
+
+@Epic("Authentication")
+@Feature("User Registration")
 
 public class UserRegisterWithInvalidDataTest extends TestBase {
     HomePage homePage;
@@ -26,26 +28,23 @@ public class UserRegisterWithInvalidDataTest extends TestBase {
     @Test(dataProvider = "ExcelData")
     @Severity(SeverityLevel.NORMAL)
     public void userCanRegisterSuccessfully(String Tc_Id,String description ,String firstName, String lastName, String email, String password, String confirm,String error) {
-
+        Allure.description(description);
         homePage = new HomePage(driver);
-         userRegistrationPage = new UserRegistrationPage(driver);
+        userRegistrationPage = new UserRegistrationPage(driver);
 
-        homePage.openRegistrationPage();
+        Allure.step("Open the registration page", () -> homePage.openRegistrationPage());
 
-        userRegistrationPage.userRegistrationInvalidData(
+        Allure.step("Enter registration data", () -> userRegistrationPage.userRegistrationInvalidData(
                 firstName,
                 lastName,
                 email,
                 password,
                 confirm
-        );
+        ));
+        Allure.step("Verify Error message is displayed", () -> Assert.assertEquals(userRegistrationPage.getErrorMsg(), error));
 
-            Assert.assertEquals(userRegistrationPage.getErrorMsg(),error);
-            System.out.println("test case id: "+ Tc_Id +" passed");
-
-
-        }
-
+        Allure.addAttachment("Test Case Result", Tc_Id + " passed successfully.");
+    }
 }
 
 
