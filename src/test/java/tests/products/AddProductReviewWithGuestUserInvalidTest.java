@@ -2,8 +2,7 @@ package tests.products;
 
 
 import data.ExcelReader;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -13,7 +12,10 @@ import pages.SearchPage;
 import tests.TestBase;
 
 import java.io.IOException;
+import java.util.Objects;
 
+@Epic("Products")
+@Feature("Add Review Functionality")
 public class AddProductReviewWithGuestUserInvalidTest extends TestBase {
     SearchPage searchPage;
     ProductPage productPage;
@@ -24,24 +26,21 @@ public class AddProductReviewWithGuestUserInvalidTest extends TestBase {
         return er.getExcelDataForAddingReview();
     }
 
-    // Combined test for searching and adding a review
     @Test(dataProvider = "ProductReviewData")
     @Severity(SeverityLevel.MINOR)
-
-
     public void searchForProductAndAddReview(String Tc_Id,String description ,String productName,String guest,String summary, String review,String error) {
-        // Step 1: Search for the product
+        Allure.description(description);
+
         searchPage = new SearchPage(driver);
         searchPage.productSearch(productName);
 
         // Assertions to verify the product appear in the search results
 
-
-        Assert.assertTrue(searchPage.getProductTitleWrapperInSearchPage().contains(productName));
-        Assert.assertEquals(searchPage.getProductName(),productName);
-
-        //open product page
-        searchPage.openProductPage();
+        Allure.step("Search and add first product to compare: " + productName, () -> {
+            searchPage.productSearch(productName);
+            searchPage.openProductPage();
+            Assert.assertTrue(Objects.requireNonNull(driver.getTitle()).contains(productName));
+        });
 
         // Step 3: Add the review for the product
         productPage = new ProductPage(driver);

@@ -1,8 +1,7 @@
 package tests.checkOut;
 
 import data.ExcelReader;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -14,9 +13,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
+@Epic("Checkout")
+@Feature("Checkout with New Address")
 public class RegisterUserCheckOutWithDifferentAddressTest extends TestBase {
+
     HomePage homePage;
-    SingInPage singInPage;
+    SignInPage signInPage;
     ProductPage productPage;
     ShoppingCartPage shoppingCartPage;
     SearchPage searchPage;
@@ -24,69 +26,92 @@ public class RegisterUserCheckOutWithDifferentAddressTest extends TestBase {
     ExcelReader excel = new ExcelReader();
 
     @DataProvider(name = "ExcelData")
-    public Object[][] UserRegisterData() throws IOException {
-        ExcelReader er = new ExcelReader();
-        return er.getExcelDataForCompare();
+    public Object[][] userRegisterData() throws IOException {
+        return excel.getExcelDataForCompare();
     }
 
     @DataProvider(name = "newAddress")
-    public Object[][] NewAddress() throws IOException {
-        ExcelReader er = new ExcelReader();
-        return er.getExcelDataForNewAddress();
+    public Object[][] newAddressData() throws IOException {
+        return excel.getExcelDataForNewAddress();
     }
+
     @Test
-    public void userCanSignInSuccessfully()  {
-        homePage=new HomePage(driver);
-        singInPage=new SingInPage(driver);
-        homePage.openSignInPage();
-        singInPage.userSignIn(GlobalVariable.EMAIL,GlobalVariable.PASSWORD);
-        Assert.assertTrue(homePage.getWelcomeMessage().contains("Welcome"));
+    public void userCanSignInSuccessfully() {
+        homePage = new HomePage(driver);
+        signInPage = new SignInPage(driver);
+
+        Allure.step("Navigate to Sign In Page", homePage::openSignInPage);
+
+        Allure.step("Sign in with valid credentials", () ->
+                signInPage.userSignIn(GlobalVariable.EMAIL, GlobalVariable.PASSWORD));
+
+        Allure.step("Verify Welcome Message", () -> {
+            String welcomeMessage = homePage.getWelcomeMessage();
+            Assert.assertTrue(welcomeMessage.contains("Welcome"),
+                    "Expected 'Welcome' in the welcome message, but got: " + welcomeMessage);
+        });
     }
 
+    @Test(priority = 1, dependsOnMethods = "userCanSignInSuccessfully", dataProvider = "ExcelData")
+    public void userCanAddProductToCart(String productName, String productName2) {
+        productPage = new ProductPage(driver);
+        shoppingCartPage = new ShoppingCartPage(driver);
+        searchPage = new SearchPage(driver);
 
-    @Test(priority = 1,dependsOnMethods = "userCanSignInSuccessfully",dataProvider = "ExcelData")
-    public void userCanAddProductToCart(String productName,String productName2) {
-        productPage=new ProductPage(driver);
-        shoppingCartPage =new ShoppingCartPage(driver);
-        searchPage=new SearchPage(driver);
+        Allure.step("Search and Add First Product to Cart", () -> {
+            searchPage.productSearch(productName);
+            searchPage.openProductPage();
+            Assert.assertTrue(Objects.requireNonNull(driver.getTitle()).contains(productName));
+            productPage.addToCart();
+        });
 
-        searchPage.productSearch(productName);
-        searchPage.openProductPage();
-        Assert.assertTrue(Objects.requireNonNull(driver.getTitle()).contains(productName) );
-        productPage.addToCart();
+        Allure.step("Search and Add Second Product to Cart", () -> {
+            searchPage.productSearch(productName2);
+            searchPage.openProductPage();
+            Assert.assertTrue(Objects.requireNonNull(driver.getTitle()).contains(productName2));
+            productPage.addToCart();
+        });
 
+        Allure.step("Open Cart Page", productPage::openCartFromLink);
 
-        searchPage.productSearch(productName2);
-        searchPage.openProductPage();
-        Assert.assertTrue(driver.getTitle().contains(productName2) );
-        productPage.addToCart();
-
-        productPage.openCartFromLink();
-        List<String> cartProductNames=shoppingCartPage.getCartProductNames();
-        Assert.assertTrue(cartProductNames.contains(productName),"Cart should contain: "+ productName);
-        Assert.assertTrue(cartProductNames.contains(productName2),"Cart should contain: "+ productName2);
+        Allure.step("Verify both products are in the cart", () -> {
+            List<String> cartProductNames = shoppingCartPage.getCartProductNames();
+            Allure.addAttachment("Products in Cart", String.join(", ", cartProductNames));
+            Assert.assertTrue(cartProductNames.contains(productName), "Cart should contain: " + productName);
+            Assert.assertTrue(cartProductNames.contains(productName2), "Cart should contain: " + productName2);
+        });
     }
 
-
-
-    @Test(priority = 2,dataProvider = "newAddress")
+    @Test(priority = 2, dependsOnMethods = "userCanAddProductToCart", dataProvider = "newAddress")
     @Severity(SeverityLevel.CRITICAL)
-    public void userCanCheckOutWithNewAddressSuccessfully(String Tc_Id,String description,String street, String city,String state, String zip, String county, String phone) throws IOException {
+    @Story("Checkout")
+    public void userCanCheckOutWithNewAddressSuccessfully(
+            String Tc_Id, String description, String street, String city, String state,
+            String zip, String county, String phone) {
 
-        checkOutPage=new CheckOutPage(driver);
-        shoppingCartPage.goToCheckOut();
-        checkOutPage.checkOutWithNewAddress(street,city,state,zip,county,phone);
-        Assert.assertTrue(Objects.requireNonNull(driver.getTitle()).equalsIgnoreCase("success page"));
+        Allure.description(description);
 
-        String orderId = checkOutPage.getOrderId();
+        checkOutPage = new CheckOutPage(driver);
 
-        System.out.println("the order id is "+ checkOutPage.getOrderId());
+        Allure.step("Proceed to Checkout", shoppingCartPage::goToCheckOut);
 
+        Allure.step("Enter and Confirm New Address Details", () ->
+                checkOutPage.checkOutWithNewAddress(street, city, state, zip, county, phone));
 
-        excel.writeNewOrderId(orderId);
-        System.out.println("test case id: "+ Tc_Id +" passed");
+        Allure.step("Verify Checkout Success Page", () -> {
+            String title = Objects.requireNonNull(driver.getTitle());
+            Assert.assertTrue(title.equalsIgnoreCase("success page"),
+                    "Expected 'success page', but got: " + title);
+        });
 
+        Allure.step("Retrieve and Log Order ID", () -> {
+            String orderId = checkOutPage.getOrderId();
+            excel.writeNewOrderId(orderId);
+            Allure.addAttachment("Order ID", orderId);
+            System.out.println("The order ID is: " + orderId);
+        });
+
+        Allure.addAttachment("Test Case Execution", "Test Case ID: " + Tc_Id + " passed.");
+        System.out.println("Test Case ID: " + Tc_Id + " passed");
     }
-
-
 }

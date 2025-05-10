@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.Allure;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
@@ -13,12 +14,11 @@ public class TestBase {
     @BeforeClass
     @Parameters({"browser"})
     public void startDriver(@Optional("chrome") String browserName) {
-        // Get initialized driver from BrowserOptions
-        driver = BrowserOptions.browserOptions(browserName);
-
-        // Configure browser
-        driver.manage().window().maximize();
-        driver.get(GlobalVariable.URL);
+        Allure.step("Open the Website", () -> {
+            driver = BrowserOptions.browserOptions(browserName);
+            driver.manage().window().maximize();
+            driver.get(GlobalVariable.URL);
+        });
     }
 
     @AfterMethod
@@ -35,8 +35,10 @@ public class TestBase {
 
     @AfterClass
     public void stopDriver() {
+        Allure.step("Close the Website",() ->{
         if (driver != null) {
             driver.quit();
         }
-    }
+    });
+}
 }

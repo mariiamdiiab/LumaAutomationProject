@@ -5,8 +5,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
-public class SingInPage extends PageBase{
-    public SingInPage(WebDriver driver) {
+public class SignInPage extends PageBase{
+    public SignInPage(WebDriver driver) {
         super(driver);
     }
 
