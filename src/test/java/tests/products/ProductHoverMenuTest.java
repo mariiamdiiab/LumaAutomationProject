@@ -6,32 +6,37 @@ import org.testng.annotations.Test;
 import pages.HomePage;
 import tests.TestBase;
 
-import java.util.Objects;
-
-@Epic("products")
+@Epic("Products")
 @Feature("Hover Functionality")
 public class ProductHoverMenuTest extends TestBase {
+    private HomePage homePage;
 
-    HomePage homePage;
-
-    @Test
-    @Severity(SeverityLevel.MINOR)
-    @Description("Validate the functionality of hovering")
+    @Test(groups = "ValidTests")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Validate that user can navigate to jackets using hover menu")
+    @Story("Menu Navigation")
     public void userCanSelectSubCategoryFromMenu() {
         homePage = new HomePage(driver);
 
-        Allure.step("Hover over Men > Tops > Jackets menu and click on Jackets", () -> {
-            homePage.selectJacketMenu();
+        Allure.step("1. Hover over Women > Tops > Jackets menu", () -> homePage.selectJacketMenu());
+
+        Allure.step("2. Verify the URL contains 'jackets'", () -> {
+            String currentUrl = driver.getCurrentUrl();
+            Assert.assertNotNull(currentUrl);
+            Assert.assertTrue(currentUrl.contains("jackets"),
+                    String.format("URL validation failed. Expected to contain 'jackets', Actual URL: %s", currentUrl));
         });
 
-        Allure.step("Verify that the URL contains 'jackets'", () -> {
-            Assert.assertTrue(Objects.requireNonNull(driver.getCurrentUrl()).contains("jackets"));
+        Allure.step("3. Verify the page title is 'Jackets'", () -> {
+            String actualTitle = homePage.getPageTitle();
+            Assert.assertEquals(actualTitle, "Jackets",
+                    String.format("Title mismatch. Expected: 'Jackets', Actual: '%s'", actualTitle));
         });
 
-        Allure.step("Verify that the page title is 'Jackets'", () -> {
-            Assert.assertEquals(homePage.getPageTitle(), "Jackets");
-        });
-
-        Allure.addAttachment("Test Case Result", "Test case TC_Hover_026 passed successfully.");
+        Allure.addAttachment("Test Verification", "text/plain",
+                """
+                        Verified hover navigation to Jackets:
+                        - URL contains 'jackets'
+                        - Page title is 'Jackets'""");
     }
 }
