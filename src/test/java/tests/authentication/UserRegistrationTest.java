@@ -1,47 +1,78 @@
 package tests.authentication;
 
 import com.github.javafaker.Faker;
+import data.ExcelReader;
+import io.qameta.allure.*;
 import org.testng.Assert;
-import org.testng.annotations.Test;
-import pages.HomePage;
-import pages.MyAccountPage;
-import pages.UserRegistrationPage;
+import org.testng.annotations.*;
+import pages.*;
 import tests.TestBase;
+import java.io.IOException;
 
-
+@Epic("Authentication")
+@Feature("User Registration")
 public class UserRegistrationTest extends TestBase {
+    // Page objects
+    private HomePage homePage;
+    private UserRegistrationPage userRegistrationPage;
+    private MyAccountPage myAccountPage;
 
-   Faker fakeDate=new Faker();
-   String firstName=fakeDate.name().firstName();
-   String lastName=fakeDate.name().lastName();
-   String email=fakeDate.internet().emailAddress();
-   String password="SecurePass12@";
+    // Test data for valid registration
+    private final Faker faker = new Faker();
+    private final String firstName = faker.name().firstName();
+    private final String lastName = faker.name().lastName();
+    private final String email = faker.internet().emailAddress();
+    private final String password = "SecurePass12@";
 
+    @DataProvider(name = "invalidRegistrationData")
+    public Object[][] provideInvalidRegistrationData() throws IOException {
+        ExcelReader er = new ExcelReader();
+        return er.getExcelDataForRegistration();
+    }
 
-    @Test
-        public void userCanRegisterSuccessfully() {
-            HomePage homePage = new HomePage(driver);
-            UserRegistrationPage userRegistrationPage = new UserRegistrationPage(driver);
-            MyAccountPage myAccountPage = new MyAccountPage(driver);
+    @BeforeMethod
+    public void pageSetup() {
+        homePage = new HomePage(driver);
+        userRegistrationPage = new UserRegistrationPage(driver);
+        myAccountPage = new MyAccountPage(driver);
+    }
 
-            homePage.openRegistrationPage();
-            userRegistrationPage.userRegistration(
-                    firstName,
-                    lastName,
-                    email,
-                    password
-            );
+    @Test(groups ="ValidTests")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Validate registration with valid data")
+    public void testSuccessfulRegistration() {
+        Allure.step("Open registration page", homePage::openRegistrationPage);
 
+        Allure.step("Enter valid registration data", () ->
+                userRegistrationPage.userRegistration(firstName, lastName, email, password));
+
+        Allure.step("Verify success message", () -> {
             String actualMessage = myAccountPage.getSuccessMessage();
             Assert.assertTrue(actualMessage.contains("Thank you for registering"),
                     "Expected success message not found. Actual: " + actualMessage);
+        });
 
-        System.out.println("first name is: "+firstName
-        +" last name is: "+lastName
-        +" email is: "+email);
-        System.out.println("tc id is: TC_Reg_001 passed");
-
-        homePage.SignOut();
-        }
+        Allure.step("Sign out", () -> homePage.SignOut());
     }
 
+    @Test(dataProvider = "invalidRegistrationData",groups = "InvalidTests" ,priority =1)
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Validate registration error messages")
+    public void testInvalidRegistration(String tcId, String description,
+                                        String firstName, String lastName,
+                                        String email, String password,
+                                        String confirm, String expectedError) {
+        Allure.description(description);
+        Allure.link("Test Case ID", tcId);
+
+        Allure.step("Open registration page", homePage::openRegistrationPage);
+
+        Allure.step("Enter invalid data", () ->
+                userRegistrationPage.userRegistrationInvalidData(
+                        firstName, lastName, email, password, confirm));
+
+        Allure.step("Verify error message", () ->
+                Assert.assertEquals(userRegistrationPage.getErrorMsg(), expectedError,
+                        String.format("Error mismatch for TC %s", tcId)));
+    }
+}
