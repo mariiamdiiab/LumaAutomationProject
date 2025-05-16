@@ -88,3 +88,27 @@ mvn clean test -Dbrowser=headless
 TestData.xlsx: Test data
 
 GlobalVariable.java: For environment URLs, default credentials, and values that rarely change
+Here's how to professionally present your test execution metrics in the README:
+
+## Test Execution Metrics
+
+### Sequential Execution (Stable)
+```text
+📊 Test Suite Summary
+Total Tests: 52
+✅ Passed: 52 (100%)
+❌ Failed: 0
+⏸ Skipped: 0
+```
+
+### Parallel Execution (Experimental)
+```text
+📊 Test Suite Summary
+Total Tests: 61
+✅ Passed: 57 (93.4%)
+❌ Failed: 4
+⏸ Skipped: 4
+⚠️ Known Issues: 
+- Thread safety in checkout flow
+- Session collisions in user auth
+```
