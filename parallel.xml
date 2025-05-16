@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="E-commerce Test Suite" verbose="1">
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="E-commerce Test Suite" parallel="tests" thread-count="5" verbose="1" configfailurepolicy="continue">
     <parameter name="browser" value="headless" />
 
+    <!-- Authentication Tests - Runs in parallel thread 1 -->
     <test name="Authentication Tests">
         <classes>
             <class name="tests.authentication.UserRegistrationTest" />
@@ -9,6 +11,7 @@
         </classes>
     </test>
 
+    <!-- Product Tests - Runs in parallel thread 2 -->
     <test name="Product Tests">
         <classes>
             <class name="tests.products.SearchProductTest" />
@@ -19,6 +22,7 @@
         </classes>
     </test>
 
+    <!-- Shopping Cart Tests - Runs in parallel thread 3 -->
     <test name="Shopping Cart Tests">
         <classes>
             <class name="tests.shoppingCart.AddProductToShoppingCartForRegisteredUserTest" />
@@ -26,6 +30,7 @@
         </classes>
     </test>
 
+    <!-- Checkout with Default Address Flow - Runs in parallel thread 4 -->
     <test name="Checkout with Default Address Flow">
         <classes>
             <class name="tests.checkOut.RegisterUserCheckOutWithDefaultAddressTest" />
@@ -33,6 +38,7 @@
         </classes>
     </test>
 
+    <!-- Checkout with Different Address Flow - Runs in parallel thread 5 -->
     <test name="Checkout with Different Address Flow">
         <classes>
             <class name="tests.checkOut.RegisterUserCheckOutWithDifferentAddressTest" />
