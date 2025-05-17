@@ -161,8 +161,6 @@ public class DeleteProductToShoppingCartForRegisteredUserTest extends TestBase {
     @Severity(SeverityLevel.NORMAL)
     @Description("Validate that user can clear the shopping cart completely")
 
-
-
     public void userCanClearTheCart() {
         Allure.step("1. Clear the shopping cart", () ->
                 shoppingCartPage.clearCart()
@@ -173,6 +171,8 @@ public class DeleteProductToShoppingCartForRegisteredUserTest extends TestBase {
             Allure.addAttachment("Empty Cart Message", emptyMessage);
             Assert.assertTrue(emptyMessage.contains("You have no items in your shopping cart"),
                     "Cart should be empty, but message was: " + emptyMessage);
+            Assert.assertEquals(shoppingCartPage.getCartProductNames().size(), 0,
+                    "Cart should have no products after clearing");
         });
 
         Allure.addAttachment("Test Case ID", "TC_DeleteFromCart_028");

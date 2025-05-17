@@ -6,10 +6,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.List;
 
-/**
- * Page Object for user registration functionality
- * Handles both valid and invalid registration attempts
- */
+
 public class UserRegistrationPage extends PageBase {
     private static final Logger logger = LogManager.getLogger(UserRegistrationPage.class);
 
@@ -23,23 +20,13 @@ public class UserRegistrationPage extends PageBase {
     private static final By errorMsg = By.cssSelector("[class*='mage-error'][generated='true']:not([style*='none'])");
     private static final By messageError = By.cssSelector(".message-error.message");
 
-    /**
-     * Initializes page elements
-     * @param driver WebDriver instance
-     */
+
     public UserRegistrationPage(WebDriver driver) {
         super(driver);
         logger.debug("Initializing UserRegistrationPage elements");
     }
 
-    /**
-     * Attempts user registration with valid data
-     * @param firstName User's first name
-     * @param lastName User's last name
-     * @param email User's email address
-     * @param password User's password
-     * @throws ElementNotInteractableException if fields are not interactable
-     */
+
     public void userRegistration(String firstName, String lastName, String email, String password) {
         try {
             logger.info("Attempting sign-in with email: {}", email);

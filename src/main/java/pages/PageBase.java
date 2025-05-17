@@ -10,11 +10,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.List;
-
-/**
- * Base page class providing common functionality for all page objects
- */
 public class PageBase {
     protected WebDriver driver;
     protected WebDriverWait wait;
@@ -120,21 +115,8 @@ public class PageBase {
         }
     }
 
-    /**
-     * Checks if element is present in DOM (not necessarily visible)
-     */
-    protected boolean isElementPresent(By element) {
-        try {
-            driver.findElement(element);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
 
-    /**
-     * Gets text from an element
-     */
+
     protected String getText(By element) {
         try {
             WebElement webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(element));
@@ -145,25 +127,10 @@ public class PageBase {
         }
     }
 
-    /**
-     * Hovers over an element
-     */
-    protected void hoverOverElement(By element) {
-        try {
-            WebElement webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(element));
-            actions.moveToElement(webElement).perform();
-            log.info("Hovered over element: {}", element);
-        } catch (Exception e) {
-            log.error("Failed to hover over element: {}", element, e);
-            throw e;
-        }
-    }
     String maskSensitiveData(String sensitiveValue) {
         if (sensitiveValue == null || sensitiveValue.isEmpty()) {
             return "[EMPTY]";
         }
-//        return "*******"; // Fixed length masking
-        // OR for variable length masking:
-         return sensitiveValue.replaceAll(".", "*");
+         return sensitiveValue.replaceAll("\\.", "*");
     }
 }

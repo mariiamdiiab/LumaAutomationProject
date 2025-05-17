@@ -80,23 +80,49 @@ public class ShoppingCartPage extends PageBase {
     public void clearCart() {
         try {
             logger.info("Starting cart clearance");
-            List<WebElement> rowSize = driver.findElements(row);
-            int getRowSize = rowSize.size();
-            logger.debug("Found {} items to remove", getRowSize);
 
-            for (int i = 0; i < getRowSize; i++) {
-                if (!driver.findElements(clearItemBtn).isEmpty()) {
-                    clickBtn(clearItemBtn);
-                    logger.debug("Removed item {} of {}", i+1, getRowSize);
-                } else {
-                    logger.debug("No more items to remove");
+            // Use a more dynamic approach with a while loop instead of a for loop
+            while (!driver.findElements(clearItemBtn).isEmpty()) {
+                try {
+                    WebElement deleteButton = wait.until(
+                            ExpectedConditions.elementToBeClickable(clearItemBtn));
+
+                    // Use JavaScript to click for better reliability
+                    ((JavascriptExecutor)driver).executeScript("arguments[0].click();", deleteButton);
+                    logger.debug("Removed an item from cart");
+
+                    // Add a brief wait for the page to update
+                    Thread.sleep(500);
+
+                    // Wait for page to stabilize
+                    wait.until(driver -> {
+                        try {
+                            return driver.findElements(clearItemBtn).isEmpty() ||
+                                    driver.findElement(clearItemBtn).isDisplayed();
+                        } catch (StaleElementReferenceException e) {
+                            return false; // Page is still updating
+                        }
+                    });
+
+                } catch (TimeoutException e) {
+                    // This might happen if all items are suddenly gone
+                    logger.debug("No more clickable delete buttons found");
                     break;
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    logger.warn("Interrupted while waiting for page update");
                 }
             }
-            logger.info("Cart cleared successfully");
+
+            // Final verification
+            if (driver.findElements(clearItemBtn).isEmpty()) {
+                logger.info("Cart cleared successfully");
+            } else {
+                logger.warn("Some items may remain in the cart");
+            }
 
         } catch (Exception e) {
-            logger.error("Failed to clear cart: {}", e.getMessage());
+            logger.error("Failed to clear cart: {}", e.getMessage(), e);
             throw e;
         }
     }

@@ -7,9 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Page Object for My Account section, handling success messages and order history
- */
+
 public class MyAccountPage extends PageBase {
     private static final Logger logger = LogManager.getLogger(MyAccountPage.class);
 
