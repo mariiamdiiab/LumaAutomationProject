@@ -12,12 +12,11 @@ import java.io.IOException;
 @Epic("Authentication")
 @Feature("User Registration")
 public class UserRegistrationTest extends TestBase {
-    // Page objects
+
     private HomePage homePage;
     private UserRegistrationPage userRegistrationPage;
     private MyAccountPage myAccountPage;
 
-    // Test data for valid registration
     private final Faker faker = new Faker();
     private final String firstName = faker.name().firstName();
     private final String lastName = faker.name().lastName();

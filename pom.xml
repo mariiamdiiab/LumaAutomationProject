@@ -135,8 +135,9 @@
                 <version>3.1.2</version>
                 <configuration>
                     <suiteXmlFiles>
-<!--                        <suiteXml.xml</suiteXmlFile>-->
+<!--                        <suiteXmlFile>parallel.xml</suiteXmlFile>-->
                         <suiteXmlFile>testng.xml</suiteXmlFile>
+
 
                     </suiteXmlFiles>
                     <argLine>
